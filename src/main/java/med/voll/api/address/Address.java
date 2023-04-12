@@ -1,4 +1,4 @@
-package med.voll.address;
+package med.voll.api.address;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -17,4 +17,14 @@ public class Address {
     private String city;
     private String state;
     private String zip;
+
+    public Address(AddressData data) {
+        this.street = data.street();
+        this.number = data.number();
+        this.complement = data.complement();
+        this.neighborhood = data.neighborhood();
+        this.city = data.city();
+        this.state = data.state();
+        this.zip = data.state();
+    }
 }
