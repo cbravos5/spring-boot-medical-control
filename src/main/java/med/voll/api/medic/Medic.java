@@ -33,12 +33,21 @@ public class Medic {
     @Embedded
     private Address address;
 
-    public Medic(MedicRegisterRequest data) {
+    public Medic(RegisterMedicRequest data) {
         this.name = data.name();
         this.email = data.email();
         this.crm = data.crm();
         this.specialty = data.specialty();
         this.address = new Address(data.address());
         this.phone = data.phone();
+    }
+
+    public void update(UpdateMedicRequest medic) {
+        if (medic.name() != null)
+            this.name = medic.name();
+        if (medic.phone() != null)
+            this.phone = medic.phone();
+        if (medic.address() != null)
+            this.address.update(medic.address());
     }
 }

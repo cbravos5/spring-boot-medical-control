@@ -1,10 +1,7 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.medic.ListMedicResponse;
-import med.voll.api.medic.Medic;
-import med.voll.api.medic.MedicRegisterRequest;
-import med.voll.api.medic.MedicRepository;
+import med.voll.api.medic.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +18,20 @@ public class MedicController {
 
     @PostMapping
     @Transactional
-    public void register(@RequestBody @Valid MedicRegisterRequest data) {
-
+    public void register(@RequestBody @Valid RegisterMedicRequest data) {
         _medicRepository.save(new Medic(data));
     }
 
     @GetMapping
     public Page<ListMedicResponse> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
         return _medicRepository.findAll(pagination).map(ListMedicResponse::new);
+    }
+
+    @PutMapping("{id}")
+    @Transactional
+    public void update(@PathVariable String id, @RequestBody @Valid UpdateMedicRequest data) {
+        var medic = _medicRepository.getReferenceById(id);
+
+        medic.update(data);
     }
 }
