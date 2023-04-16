@@ -1,0 +1,1 @@
+alter table medics add enabled TINYINT(1) not null;

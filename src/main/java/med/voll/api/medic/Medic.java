@@ -33,6 +33,8 @@ public class Medic {
     @Embedded
     private Address address;
 
+    private Boolean enabled = true;
+
     public Medic(RegisterMedicRequest data) {
         this.name = data.name();
         this.email = data.email();
@@ -49,5 +51,9 @@ public class Medic {
             this.phone = medic.phone();
         if (medic.address() != null)
             this.address.update(medic.address());
+    }
+
+    public void delete() {
+        this.enabled = false;
     }
 }
